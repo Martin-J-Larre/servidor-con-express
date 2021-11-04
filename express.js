@@ -1,9 +1,3 @@
-//*  Hola Juliana,
-//*  En app.get("/productos") solo me muestra un objeto vacío cuando busco /productos en el servidor .
-//*  En app.get("/productos-random") tengo serias dudas de lo que hice esta bien, 
-//*  igual comente lo que quize hacer en el metodo, pienso esta bien pero cuando ingreso 
-//*  a /productos-random en el servidor solamente me deja la pagina en blanco.
-
 const express = require('express');
 const contenedor = require('./contenedor');
 const app = express();
@@ -15,14 +9,19 @@ app.get("/",(req, res)=>{
     res.send(msj);
 })
 
-app.get("/productos",(req, res)=>{
+app.get("/productos", async (req, res)=>{
 
-    let products = contenedor.getAll();
+    let products = await contenedor.getAll();
     res.json(products);
-})
-app.get("/productos-random",(req, res)=>{
-    let response = contenedor.randomId();
-    res.json(response)
+});
+
+app.get("/productos-random", async(req, res)=>{
+    contenedor
+    .getAll()
+    .then((data) => {
+      res.send(data[Math.floor(Math.random() * data.length)]);
+    })
+    .catch((error) => console.log(error));
 })
 
 app.listen(PORT, () => {

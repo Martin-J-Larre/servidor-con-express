@@ -63,7 +63,7 @@ class Contenedor {
       let products = await fs.promises.readFile(this.archivo, "utf-8");
       let fileProducts = JSON.parse(products);
 
-      let filtroid = fileProducts.map(function (element) {
+      let filtroid = fileProducts.map(function (element){
         return `${element.id}`;
       });
 
@@ -86,19 +86,6 @@ class Contenedor {
       console.log("Todo borrado");
     } catch (error) {
       console.log("Error en el metodo deleteAll()", error);
-    }
-  }
-  //?crear un método que lea y guarda el array de productos.txt y hacer random cada uno de sus i(obj) usando Math.random()
-  //Intento 1
-  randomId(){
-    try {
-      // usar el método getAll() para obtener los datos de productos.txt
-      let dataProducts = this.getAll();
-      // sacar el index(obj) del array en dataProducts, usar Math.random() para hacer el index(obj) random y retornarlo
-      let randomProduct = Math.round(Math.random() * dataProducts.length);
-      return randomProduct;
-    } catch (error) {
-      
     }
   }
 }
